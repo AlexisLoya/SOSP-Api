@@ -1,6 +1,7 @@
 package mx.edu.utvt.controller;
 
 import mx.edu.utvt.entity.Area;
+import mx.edu.utvt.entity.Category;
 import mx.edu.utvt.entity.FileType;
 import mx.edu.utvt.service.AreaService;
 import mx.edu.utvt.service.FileTypeService;
@@ -29,5 +30,16 @@ public class FileTypeController {
     @PostMapping("/save")
     public ResponseEntity<FileType> save(@RequestBody FileType fileType) {
         return new ResponseEntity<>(service.saveOrUpdate(fileType), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<Area> update(@RequestBody FileType fileType){
+        return new ResponseEntity(service.saveOrUpdate(fileType), HttpStatus.CREATED);
+
+    }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity delete(@PathVariable("id") Long id){
+        if(service.remove(id)) return new ResponseEntity(HttpStatus.OK);
+        else return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 }

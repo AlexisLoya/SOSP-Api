@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AreaService {
@@ -24,8 +25,13 @@ public class AreaService {
         return areaRepository.save(area);
     }
 
-    public void remove(long id){
-        areaRepository.deleteById(id);
+    public boolean remove(Long id) {
+        Area area = getOne(id);
+        if (area != null){
+            areaRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
 

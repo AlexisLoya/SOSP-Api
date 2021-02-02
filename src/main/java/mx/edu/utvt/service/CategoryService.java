@@ -1,13 +1,12 @@
 package mx.edu.utvt.service;
 
-import mx.edu.utvt.entity.Area;
 import mx.edu.utvt.entity.Category;
-import mx.edu.utvt.repository.AreaRepository;
 import mx.edu.utvt.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
@@ -24,7 +23,12 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
-    public void remove(long id){
-        categoryRepository.deleteById(id);
+    public boolean remove(Long id) {
+        Category  category= getOne(id);
+        if (category != null){
+            categoryRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

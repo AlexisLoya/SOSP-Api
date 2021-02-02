@@ -31,4 +31,14 @@ public class AreaController {
         return new ResponseEntity<>(service.saveOrUpdate(area), HttpStatus.CREATED);
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<Area> update(@RequestBody Area area){
+        return new ResponseEntity<>(service.saveOrUpdate(area), HttpStatus.CREATED);
+    }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity delete(@PathVariable("id") Long id){
+        if(service.remove(id)) return new ResponseEntity(HttpStatus.OK);
+        else return new ResponseEntity(HttpStatus.NOT_FOUND);
+    }
+
 }

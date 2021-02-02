@@ -1,13 +1,12 @@
 package mx.edu.utvt.service;
 
-import mx.edu.utvt.entity.Area;
 import mx.edu.utvt.entity.FileType;
-import mx.edu.utvt.repository.AreaRepository;
 import mx.edu.utvt.repository.FileTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Service;
 import java.util.List;
 
+@Service
 public class FileTypeService {
     @Autowired
     private FileTypeRepository fileTypeRepository;
@@ -24,7 +23,13 @@ public class FileTypeService {
         return fileTypeRepository.save(fileType);
     }
 
-    public void remove(long id){
-        fileTypeRepository.deleteById(id);
+
+    public boolean remove(Long id) {
+        FileType fileType= getOne(id);
+        if (fileType != null){
+            fileTypeRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }
